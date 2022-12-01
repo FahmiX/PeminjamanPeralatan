@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
 
 /*
@@ -38,3 +39,6 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
     ->middleware('auth');
 
 Route::resource('barangs', \App\Http\Controllers\BarangController::class);
+
+// pdf
+Route::get('mpdf', [App\Http\Controllers\BarangController::class, 'createPDF'])->name('mpdf');

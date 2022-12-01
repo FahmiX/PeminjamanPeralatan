@@ -16,5 +16,6 @@ class barang extends Model
         'nama_barang',
         'stok_barang',
         'status_barang',
+        'gambar_barang',
     ];
 }

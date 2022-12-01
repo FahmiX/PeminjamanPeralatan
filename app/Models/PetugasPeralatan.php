@@ -17,7 +17,7 @@ class PetugasPeralatan extends Authenticatable
     protected $table = 'petugas_peralatan';
 
     protected $fillable = [
-        'nama',
+        'nama_petugas',
         'username',
         'password',
     ];

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
-use Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class PetugasPeralatanLoginController extends Controller
 {
@@ -27,12 +28,9 @@ class PetugasPeralatanLoginController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-
-
         // Attempt to log the user in
         if (Auth::guard('petugas_peralatan')->attempt(['username' => $request->input('username'), 'password' => $request->input('password')])) {
             // if successful, then redirect to their intended location
-            dd('test');
             return redirect()->intended(route('petugas_peralatan.dashboard'));
         } else {
             dd(Auth::guard('petugas_peralatan')->attempt(['username' => $request->username, 'password' => $request->password]));

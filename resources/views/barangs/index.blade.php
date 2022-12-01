@@ -27,10 +27,14 @@
                         </tr>
                         </thead>
                     </table>
-
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <a href="{{route('mpdf')}}" class="btn btn-primary mb-2" onclick="return confirm('Apakah anda ingin mendownload');">
+            Download PDF
+        </a>
     </div>
 @stop
 

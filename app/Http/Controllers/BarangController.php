@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+// MPDF
+use Mpdf\Mpdf as PDF;
 
 class BarangController extends Controller
 {
@@ -44,6 +47,27 @@ class BarangController extends Controller
         return view('barangs.create');
     }
 
+    // create & download PDF
+    public function createPDF()
+    {
+        // Setup Title
+        $title = 'Daftar Barang';
+
+        // Setup Data Get Only 10 Data
+        $barangs = Barang::orderBy('id', 'asc')->take(10)->get();
+        // $barangs = Barang:all();
+
+        // Setup PDF
+        $pdf = new PDF();
+
+        // Setup HTML
+        $html = view('barangs.pdf', compact('barangs'));
+
+        // Setup PDF
+        $pdf->WriteHTML($html);
+        $pdf->Output('Daftar Barang.pdf', 'D');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -78,6 +102,7 @@ class BarangController extends Controller
             $array['status_barang'] = strtoupper($array['status_barang']);
 
             $barang = Barang::create($array);
+            // File Log
             Log::channel('create_barang')->info('Barang berhasil ditambahkan', [
                 'id' => $barang->id,
                 'kode_barang' => $barang->kode_barang,
@@ -85,6 +110,8 @@ class BarangController extends Controller
                 'stok_barang' => $barang->stok_barang,
                 'status_barang' => $barang->status_barang
             ]);
+            // Activity Log
+            activity()->log('Barang berhasil ditambahkan');
             return redirect()->route('barangs.index')->with('success_message', 'Berhasil menambahkan barang baru');
         } catch (\Exception $e) {
             Log::channel('create_barang')->error('Barang gagal ditambahkan', [

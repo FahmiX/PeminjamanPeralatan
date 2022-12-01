@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('kode_barang', 10)->unique()->nullable(false);
             $table->string('nama_barang', 50)->unique()->nullable(false);
             $table->integer('stok_barang')->nullable(false)->default(0);
-            $table->enum('status_barang', ['TERSEDIA', 'HABIS', 'RUSAK', 'HILANG'])->nullable(false)->default('aktif');
+            $table->enum('status_barang', ['TERSEDIA', 'HABIS', 'RUSAK', 'HILANG'])->nullable(false);
+            $table->string('gambar_barang', 255)->nullable(true);
             $table->timestamps();
         });
     }
