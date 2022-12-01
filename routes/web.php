@@ -42,3 +42,6 @@ Route::resource('barangs', \App\Http\Controllers\BarangController::class);
 
 // pdf
 Route::get('mpdf', [App\Http\Controllers\BarangController::class, 'createPDF'])->name('mpdf');
+
+// jobs & queues for TestQueueEmail
+Route::get('queue', [App\Http\Controllers\TestQueueEmails::class, 'sendTestEmails'])->name('queue.index');
